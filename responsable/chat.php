@@ -94,7 +94,7 @@ $conn->close();
     <h2>Chat con Cliente</h2>
     <div id="messages">
         <?php foreach ($mensajes as $mensaje): ?>
-            <div><strong><?= htmlspecialchars($mensaje['remitente']) ?>:</strong> <?= htmlspecialchars($mensaje['contenido']) ?> <em>(<?= $mensaje['fecha'] ?>)</em></div>
+            <div><strong><?= htmlspecialchars($mensaje['remitente'] === 'responsable' ? 'Responsable' : 'Cliente') ?>:</strong> <?= htmlspecialchars($mensaje['contenido']) ?> <em>(<?= $mensaje['fecha'] ?>)</em></div>
         <?php endforeach; ?>
     </div>
     <div id="message-input">
@@ -112,7 +112,7 @@ $conn->close();
                 const messagesContainer = document.getElementById('messages');
                 messagesContainer.innerHTML = ''; // Limpiar mensajes anteriores
                 data.mensajes.forEach(mensaje => {
-                    messagesContainer.innerHTML += `<div><strong>${mensaje.remitente}:</strong> ${mensaje.contenido} <em>(${mensaje.fecha})</em></div>`;
+                    messagesContainer.innerHTML += `<div><strong>${mensaje.remitente === 'responsable' ? 'Responsable' : 'Cliente'}:</strong> ${mensaje.contenido} <em>(${mensaje.fecha})</em></div>`;
                 });
                 messagesContainer.scrollTop = messagesContainer.scrollHeight; // Desplazar hacia abajo
             })
@@ -148,7 +148,10 @@ $conn->close();
             if (data.error) {
                 alert('Error: ' + data.error);
             } else {
-                alert('Mensaje enviado: ' + data.respuesta_bot);
+                // Mostrar el mensaje enviado en el feed
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML += `<div><strong>Responsable:</strong> ${message} <em>(Ahora)</em></div>`;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Desplazar hacia abajo
                 messageInput.value = ''; // Limpiar el campo de entrada
             }
         })
@@ -158,6 +161,7 @@ $conn->close();
         });
     });
 </script>
+
 
 </body>
 </html>

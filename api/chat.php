@@ -2,6 +2,9 @@
 // Incluir el archivo de configuración para la conexión a la base de datos
 require_once '../config.php';
 
+// Establecer el encabezado de respuesta como JSON
+header('Content-Type: application/json');
+
 // Manejar la solicitud POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener el cuerpo de la solicitud
@@ -50,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $chat_id = $row['id'];
         }
 
-        // Guardar el mensaje del cliente en la base de datos
-        $stmt = $conn->prepare("INSERT INTO mensajes (chat_id, remitente, contenido, fecha, leido) VALUES (?, 'cliente', ?, NOW(), 0)");
+        // Guardar el mensaje en la base de datos
+        $stmt = $conn->prepare("INSERT INTO mensajes (chat_id, remitente, contenido, fecha, leido) VALUES (?, 'responsable', ?, NOW(), 0)");
         $stmt->bind_param("is", $chat_id, $mensaje);
         $stmt->execute();
 

@@ -42,6 +42,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a href="../logout.php">Cerrar Sesión</a>
     <title>Chat Responsable</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -159,6 +160,7 @@ $conn->close();
             console.error('Error:', error);
             alert('Hubo un problema al enviar el mensaje.');
         });
+
     });
 </script>
 

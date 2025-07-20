@@ -138,6 +138,24 @@ function assignResponsable($conn) {
 </div>
 
 <script>
+    // Función para cargar mensajes
+    function loadMessages() {
+        fetch('http://localhost/chat-web/api/get_messages.php?chat_id=<?= json_encode($chat_id) ?>')
+            .then(response => response.json())
+            .then(data => {
+                const messagesContainer = document.getElementById('messages');
+                messagesContainer.innerHTML = ''; // Limpiar mensajes anteriores
+                data.mensajes.forEach(mensaje => {
+                    messagesContainer.innerHTML += `<div><strong>Cliente:</strong> ${mensaje.contenido} <em>(${mensaje.fecha})</em></div>`;
+                });
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Desplazar hacia abajo
+            })
+            .catch(error => console.error('Error al cargar mensajes:', error));
+    }
+
+    // Llamar a loadMessages cada 2 segundos
+    setInterval(loadMessages, 2000);
+
     document.getElementById('send-button').addEventListener('click', function() {
         const messageInput = document.getElementById('message');
         const message = messageInput.value;

@@ -102,6 +102,7 @@ function getBotResponse($mensaje, $conn) {
     return "Lo siento, no tengo una respuesta para eso."; // Respuesta por defecto
 }
 
+
 // Función para asignar un responsable con menos chats activos
 function assignResponsable($conn) {
     // Seleccionar al responsable con menos chats activos
